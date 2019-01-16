@@ -9,7 +9,7 @@ const expenseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  friend: {
+  person: {
     type: mongoose.Schema.Types.ObjectId,  //mongoose.Types.Array
     ref: 'Person',
     required: true
