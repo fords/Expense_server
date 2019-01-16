@@ -10,7 +10,7 @@ const expenseSchema = new mongoose.Schema({
     required: true
   },
   person: {
-    type: mongoose.Schema.Types.ObjectId,  //mongoose.Types.Array
+    type: [mongoose.Schema.Types.ObjectId],  //mongoose.Types.Array
     ref: 'Person',
     required: true
   },
