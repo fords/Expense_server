@@ -18,4 +18,4 @@ const personSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Person', person)
+module.exports = mongoose.model('Person', personSchema)
