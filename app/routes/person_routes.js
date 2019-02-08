@@ -116,6 +116,12 @@ router.delete('/persons/:id', requireToken, (req, res) => {
       // delete the person ONLY IF the above didn't throw
       person.remove()
     })
+    // .then(persons => {
+    //   // `persons` will be an array of Mongoose documents
+    //   // we want to convert each one to a POJO, so we use `.map` to
+    //   // apply `.toObject` to each one
+    //   return persons.map(person => person.toObject())
+    // })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
     // if an error occurs, pass it to the handler
