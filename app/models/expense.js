@@ -9,11 +9,6 @@ const expenseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  // person: {
-  //   type: [mongoose.Schema.Types.ObjectId],  //mongoose.Types.Array
-  //   ref: 'Person',
-  //   required: false
-  // },
   payments: [{
     pay: {
         type: Number,

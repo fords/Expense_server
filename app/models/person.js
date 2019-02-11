@@ -12,7 +12,7 @@ const personSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: false  // require should be true
+    required: true  // require should be true
   }
 }, {
   timestamps: true
