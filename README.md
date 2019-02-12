@@ -6,6 +6,7 @@ Inspired by Splitwise app created in Rhode Island, the app that keeps track of b
 ## List of Technologies Used
 <ul>
 <li> Mongoose </li>
+<li> Non relational(NoSQL) database</li>
 <li> Express </li>
 <li> Restful API </li>
 <li> Custom API </li>
