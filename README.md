@@ -13,8 +13,13 @@ Inspired by Splitwise app created in Rhode Island, the app that keeps track of b
 </ul>
 
 
-## ERD table relationship
+## ERD schema 
 ![Alt ERD 1](part1.png?raw=true)
+
+## Repository
+The link for front end source code https://github.com/fords/Expense_client_ </br>
+The link for back end source code https://github.com/fords/Expense_server </br>
+
 
 ## User Stories
 The user can sign in and sign out anytime  </br>
