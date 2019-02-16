@@ -18,7 +18,7 @@ You can sign up and sign in using any dummy email address even such as 1@1.1 and
 ![Alt ERD 1](part1.png?raw=true)
 
 ## Repository
-The link for front end source code https://github.com/fords/Expense_client_ </br>
+The link for front end source code https://github.com/fords/Expense_client_</br>
 The link for back end source code https://github.com/fords/Expense_server </br>
 
 
