@@ -3,8 +3,8 @@ const express = require('express')
 // Passport docs: http://www.passportjs.org/docs/
 const passport = require('passport')
 
-// pull in Mongoose model for transactions
-const Transaction = require('../models/transaction')
+// pull in Mongoose model for historys
+const History = require('../models/history')
 
 // we'll use this to intercept any errors that get thrown and send them
 // back to the client with the appropriate status code
@@ -29,43 +29,43 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // INDEX
-// GET /transactions
-router.get('/transactions', (req, res) => {
-  Transaction.find()
-    .then(transactions => {
-      // `transactions` will be an array of Mongoose documents
+// GET /historys
+router.get('/historys', (req, res) => {
+  History.find()
+    .then(historys => {
+      // `historys` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return transactions.map(transaction => transaction.toObject())
+      return historys.map(history => history.toObject())
     })
-    // respond with status 200 and JSON of the transactions
-    .then(transactions => res.status(200).json({ transactions: transactions }))
+    // respond with status 200 and JSON of the historys
+    .then(historys => res.status(200).json({ historys: historys }))
     // if an error occurs, pass it to the handler
     .catch(err => handle(err, res))
 })
 
 // SHOW
-// GET /transactions/5a7db6c74d55bc51bdf39793
-router.get('/transactions/:id', (req, res) => {
+// GET /historys/5a7db6c74d55bc51bdf39793
+router.get('/historys/:id', (req, res) => {
   // req.params.id will be set based on the `:id` in the route
-  Transaction.findById(req.params.id)
+  History.findById(req.params.id)
     .then(handle404)
-    // if `findById` is succesful, respond with 200 and "transaction" JSON
-    .then(transaction => res.status(200).json({ transaction: transaction.toObject() }))
+    // if `findById` is succesful, respond with 200 and "history" JSON
+    .then(history => res.status(200).json({ history: history.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(err => handle(err, res))
 })
 
 // CREATE
-// POST /transactions
-router.post('/transactions', requireToken, (req, res) => {
-  // set owner of new transaction to be current user
-  req.body.transaction.owner = req.user.id
+// POST /historys
+router.post('/historys', requireToken, (req, res) => {
+  // set owner of new history to be current user
+  req.body.history.owner = req.user.id
 
-  Transaction.create(req.body.transaction)
-    // respond to succesful `create` with status 201 and JSON of new "transaction"
-    .then(transaction => {
-      res.status(201).json({ transaction: transaction.toObject() })
+  History.create(req.body.history)
+    // respond to succesful `create` with status 201 and JSON of new "history"
+    .then(history => {
+      res.status(201).json({ history: history.toObject() })
     })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
@@ -74,30 +74,30 @@ router.post('/transactions', requireToken, (req, res) => {
 })
 
 // UPDATE
-// PATCH /transactions/5a7db6c74d55bc51bdf39793
-router.patch('/transactions/:id', requireToken, (req, res) => {
+// PATCH /historys/5a7db6c74d55bc51bdf39793
+router.patch('/historys/:id', requireToken, (req, res) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.transaction.owner
+  delete req.body.history.owner
 
-  Transaction.findById(req.params.id)
+  History.findById(req.params.id)
     .then(handle404)
-    .then(transaction => {
+    .then(history => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, transaction)
+      requireOwnership(req, history)
 
       // the client will often send empty strings for parameters that it does
       // not want to update. We delete any key/value pair where the value is
       // an empty string before updating
-      Object.keys(req.body.transaction).forEach(key => {
-        if (req.body.transaction[key] === '') {
-          delete req.body.transaction[key]
+      Object.keys(req.body.history).forEach(key => {
+        if (req.body.history[key] === '') {
+          delete req.body.history[key]
         }
       })
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      return transaction.update(req.body.transaction)
+      return history.update(req.body.history)
     })
     // if that succeeded, return 204 and no JSON
     .then(() => res.sendStatus(204))
@@ -106,15 +106,15 @@ router.patch('/transactions/:id', requireToken, (req, res) => {
 })
 
 // DESTROY
-// DELETE /transactions/5a7db6c74d55bc51bdf39793
-router.delete('/transactions/:id', requireToken, (req, res) => {
-  Transaction.findById(req.params.id)
+// DELETE /historys/5a7db6c74d55bc51bdf39793
+router.delete('/historys/:id', requireToken, (req, res) => {
+  History.findById(req.params.id)
     .then(handle404)
-    .then(transaction => {
-      // throw an error if current user doesn't own `transaction`
-      requireOwnership(req, transaction)
-      // delete the transaction ONLY IF the above didn't throw
-      transaction.remove()
+    .then(history => {
+      // throw an error if current user doesn't own `history`
+      requireOwnership(req, history)
+      // delete the history ONLY IF the above didn't throw
+      history.remove()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))
