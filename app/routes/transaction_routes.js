@@ -18,7 +18,7 @@ const customErrors = require('../../lib/custom_errors')
 const handle404 = customErrors.handle404
 // we'll use this function to send 401 when a user tries to modify a resource
 // that's owned by someone else
-const requireOwnership = customErrors.requireOwnership
+// const requireOwnership = customErrors.requireOwnership
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -85,7 +85,7 @@ router.patch('/transactions/:id', requireToken, (req, res) => {
     .then(transaction => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, transaction)
+      // requireOwnership(req, transaction)
 
       // the client will often send empty strings for parameters that it does
       // not want to update. We delete any key/value pair where the value is
@@ -112,7 +112,7 @@ router.delete('/transactions/:id', requireToken, (req, res) => {
     .then(handle404)
     .then(transaction => {
       // throw an error if current user doesn't own `transaction`
-      requireOwnership(req, transaction)
+      // requireOwnership(req, transaction)
       // delete the transaction ONLY IF the above didn't throw
       transaction.remove()
     })
