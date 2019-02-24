@@ -9,7 +9,7 @@ const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const personRoutes = require('./app/routes/person_routes')
 const expenseRoutes = require('./app/routes/expense_routes')
-const transactionRoutes = require('./app/routes/expense_routes')
+const transactionRoutes = require('./app/routes/transaction_routes')
 // require database configuration logic
 // `db` will be the actual Mongo URI as a string
 const db = require('./config/db')
