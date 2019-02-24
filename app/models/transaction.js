@@ -1,20 +1,27 @@
 const mongoose = require('mongoose')
 
 const transactionSchema = new mongoose.Schema({
-  expense_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Expense',
+  expense_name: {
+    type: String,
     required: true  // require should be true
   },
-  payment: {
+  person_name:
+    [{
+      type: String,
+      required: true
+    }],
+
+  payment:
+    [{
+      type: Number,
+      required: true
+    }],
+
+  index_expense: {
     type: Number,
     required: true
-  },
-  person_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Person',
-    required: true  // require should be true
   }
+
 }, {
   timestamps: true
 })
