@@ -3,32 +3,32 @@ const mongoose = require('mongoose')
 const transactionSchema = new mongoose.Schema({
   expense_name: {
     type: String,
-    required: false  // require should be true
+    required: true  // require should be true
   },
   person_name:
     [{
       type: String,
-      required: false
+      required: true
     }],
 
   payment:
     [{
       type: Number,
-      required: false
+      required: true
     }],
 
   index_expense: {
     type: Number,
-    required: false
+    required: true
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: false  // require should be true
+    required: true  // require should be true
   }
 
 }, {
-  timestamps: false
+  timestamps: true
 })
 
 module.exports = mongoose.model('Transaction', transactionSchema)
