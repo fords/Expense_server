@@ -20,10 +20,21 @@ const transactionSchema = new mongoose.Schema({
   index_expense: {
     type: Number,
     required: true
-  }
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true  // require should be true
+  },
+  createdAtT: {type: Date, requred: true, index : true, default: Date.now}
 
 }, {
-  timestamps: true
+  timestamps:
+  {
+        type: Date,
+        required: true,
+        default: Date.now
+  },
 })
 
 module.exports = mongoose.model('Transaction', transactionSchema)
