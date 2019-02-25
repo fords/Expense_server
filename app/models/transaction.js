@@ -3,7 +3,11 @@ const mongoose = require('mongoose')
 const transactionSchema = new mongoose.Schema({
   expense_name: {
     type: String,
-    required: true  // require should be true
+    required: true
+  },
+  totalAmount:{
+    type: Number,
+    required: true
   },
   person_name:
     [{
@@ -24,7 +28,7 @@ const transactionSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true  // require should be true
+    required: true  
   },
   createdAtT: {type: Date, requred: true, index : true, default: Date.now}
 
